@@ -1,60 +1,57 @@
-# Colorfly Studio - Generador de Paletas Interactivo 🎨
+# Colorfly Studio - Generador de Paletas Interactivo
 
-Bienvenido al repositorio de **Colorfly Studio - Generador de Paletas Interactivo**, una herramienta para crear esquemas de colores de forma rápida e intuitiva.
-Este proyecto fue desarrollado como Proyecto Integrador para el Módulo 1 (Full Stack) por **Enzo Villalba**.
+Generador de paletas de colores. Crea esquemas con un botón, deja bloquear los colores que gustan y copia los valores en HEX y HSL.
 
-## 🚀 Características y Funcionalidades
+Demo: https://colorfly-studio.vercel.app
+
+![Paleta de seis colores](docs/img/col-1.webp)
+![Otra paleta de seis colores](docs/img/col-2.webp)
+![Paleta de ocho colores](docs/img/col-3.webp)
+
+Más trabajos en mi portfolio: https://portfolio-fawn-kappa-35.vercel.app
+
+## Características y Funcionalidades
 
 - **Generación Aleatoria:** Crea esquemas de colores presionando un solo botón.
 - **Renderizado Dinámico:** Elige visualizar entre 6, 8 o 9 colores simultáneamente.
-- **Bloqueo de Colores:** Mantén los colores que te gusten haciendo clic en el ícono del candado 🔒 y genera nuevos colores para el resto.
+- **Bloqueo de Colores:** Mantén los colores que te gusten haciendo clic en el ícono del candado y genera nuevos colores para el resto.
 - **Formatos Múltiples:** Visualiza el valor de cada color en formato **HEX** y **HSL**.
 - **Copiar al Portapapeles:** Haz clic sobre el código HEX de cualquier color para copiarlo al instante. Aparecerá un microfeedback visual (Toast).
 - **Persistencia de Datos:** La última paleta generada se guarda automáticamente en `localStorage`, de manera que no pierdas tu trabajo si recargas la página.
-- **Diseño Moderno:** Interfaz con "Glassmorphism", animaciones de entrada, Dark Mode por defecto y responsive design con CSS Grid.
+- **Diseño:** Interfaz con "Glassmorphism", animaciones de entrada, Dark Mode por defecto y responsive design con CSS Grid.
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 - **HTML5:** Marcado semántico y estructura accesible (roles, aria-labels).
 - **CSS3:** Flexbox, CSS Grid, Variables Nativas, Transformaciones y Transiciones.
 - **JavaScript (Vanilla):** Manipulación del DOM, control de estado (Arrays/Objetos), `localStorage` y API de Portapapeles.
 - **Phosphor Icons:** Biblioteca de iconos ligeros.
 
-## 💻 Instrucciones de Instalación y Uso Local
+## Instrucciones de Instalación y Uso Local
 
 Para correr este proyecto en tu entorno local, sigue estos pasos:
 
 1. **Clonar el repositorio:**
 
    ```bash
-   git clone https://github.com/Enzo20011/ProyectoM1_EnzoVillalba.git
+   git clone https://github.com/Enzo20011/colorfly-studio.git
    ```
 
 2. **Acceder a la carpeta:**
 
    ```bash
-   cd ProyectoM1_EnzoVillalba
+   cd colorfly-studio
    ```
 
 3. **Ejecutar la aplicación:**
    Como es una aplicación web estática, no necesitas instalar dependencias (node_modules ni paquetes). Simplemente abre el archivo `index.html` en tu navegador web de preferencia (doble clic) o utiliza una extensión como **Live Server** en VSCode.
 
-## 🏗️ Decisiones Técnicas
+## Decisiones Técnicas
 
 1. **Arquitectura HTML:** Se usaron etiquetas como `<header>` y `<main>` para segmentar lógicamente la app. Las notificaciones utilizan `aria-live="polite"` y `role="alert"` para cumplir con los estándares básicos de accesibilidad de lectores de pantalla.
 2. **Estrategia CSS:** Se decidió no utilizar frameworks como Tailwind o Bootstrap. En su lugar, se crearon variables globales de CSS (`:root`) para mantener la coherencia del esquema de colores "Slate". Se utilizó **CSS Grid** en el `.palette-container` con `grid-template-columns` dinámico desde JavaScript, para repartir el ancho equitativamente (ej: `repeat(6, 1fr)`).
 3. **Manejo de Estado (JS):** Todo se controla desde la variable `currentPalette`, que es un arreglo de objetos. Al centralizar la "fuente de verdad" en este array, las funciones como "Bloquear", "Generar" o "Cambiar tamaño" simplemente mutan el estado y luego llaman a `saveAndRender()`, manteniendo la UI sincronizada de forma eficiente.
 
-## 🌐 Despliegue
+## Despliegue
 
-La aplicación se encuentra desplegada y pública a través de **GitHub Pages**.
-Puedes probarla en vivo aquí: **[Demo de Colorfly Studio - Generador de Paletas Interactivo](https://Enzo20011.github.io/ProyectoM1_EnzoVillalba/)**
-
-## 📁 Documentación en Google Drive
-
-La carpeta compartida en Google Drive contiene capturas de pantalla y GIFs que muestran el flujo principal de la aplicación, junto con la documentación del uso de IA.
-
-🔗 **[Ver carpeta en Google Drive](https://drive.google.com/drive/u/0/folders/1JmSHmznUCe5NMb-6iGFVlQXgqILVsw3g)**
-
----
-*Hecho por Enzo Villalba.*
+Está publicada en Vercel: https://colorfly-studio.vercel.app. Como es una página estática, sirve cualquier hosting estático.

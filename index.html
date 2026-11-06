@@ -3,98 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Generador de paletas interactivo para Colorfly Studio.">
-    <title>Colorfly Studio | Generador de Paletas</title>
+    <meta name="description" content="Generador de paletas de 6, 8 o 9 colores. Se pueden bloquear colores, copiar sus valores en HEX o HSL y la paleta queda guardada en el navegador.">
+    <title>Colorfly Studio | Generador de paletas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
     <header class="header">
-        <div class="logo">
-            <i class="ph ph-paint-brush-broad"></i>
-            <h1>Colorfly Studio</h1>
-        </div>
-        
+        <h1 class="logo">Colorfly Studio</h1>
+
         <div class="controls">
-            <div class="input-group" data-tooltip="Cantidad de colores de la paleta">
-                <label for="palette-size">Cantidad:</label>
-                <select id="palette-size" aria-label="Seleccionar tamaño de paleta">
-                    <option value="6">6 Colores</option>
-                    <option value="8">8 Colores</option>
-                    <option value="9">9 Colores</option>
+            <div class="input-group">
+                <label for="palette-size">Cantidad</label>
+                <select id="palette-size">
+                    <option value="6">6 colores</option>
+                    <option value="8">8 colores</option>
+                    <option value="9">9 colores</option>
                 </select>
             </div>
-            
-            <div class="format-btns" role="group" aria-label="Formato de visualización de color">
-                <button id="btn-hex" class="format-btn active" aria-pressed="true" aria-label="Mostrar colores en formato HEX" data-tooltip="Formato HEX (#RRGGBB)">
-                    <i class="ph ph-hash"></i>
-                    HEX
-                </button>
-                <button id="btn-hsl" class="format-btn" aria-pressed="false" aria-label="Mostrar colores en formato HSL" data-tooltip="Formato HSL (Matiz, Sat, Lum)">
-                    <i class="ph ph-circle-half-tilt"></i>
-                    HSL
-                </button>
+
+            <div class="format-btns" role="group" aria-label="Formato de los valores de color">
+                <button id="btn-hex" class="format-btn active" type="button" aria-pressed="true">HEX</button>
+                <button id="btn-hsl" class="format-btn" type="button" aria-pressed="false">HSL</button>
             </div>
 
-            <button id="generate-btn" class="primary-btn" aria-label="Generar nueva paleta de colores" data-tooltip="Generar nuevos colores (Espacio)">
-                <i class="ph ph-magic-wand"></i>
-                Generar Paleta
+            <button id="generate-btn" class="primary-btn" type="button">
+                Generar paleta <span class="key-hint">Espacio</span>
             </button>
 
-            <button id="help-btn" class="secondary-btn" aria-label="Mostrar guía de ayuda" data-tooltip="Guía de uso">
-                <i class="ph ph-question"></i>
-                Ayuda
-            </button>
+            <button id="help-btn" class="secondary-btn" type="button">Ayuda</button>
         </div>
     </header>
 
-    <main id="palette-container" class="palette-container" aria-live="polite">
-    </main>
+    <main id="palette-container" class="palette-container" aria-live="polite"></main>
 
-    <div id="toast-container" class="toast-container" aria-hidden="true" role="alert">
-        <div class="toast">
-            <i class="ph ph-check-circle"></i>
-            <span id="toast-message">Color copiado al portapapeles</span>
-        </div>
+    <div id="toast-container" class="toast-container" aria-hidden="true" role="status">
+        <div class="toast"><span id="toast-message">Copiado</span></div>
     </div>
 
-    <!-- Modal de Guía de Ayuda -->
-    <div id="help-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div id="help-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-content">
-            <button id="close-modal-btn" class="close-btn" aria-label="Cerrar guía de ayuda">
-                <i class="ph ph-x"></i>
-            </button>
-            <h2 id="modal-title">¿Cómo usar Colorfly Studio? 🎨</h2>
-            <p class="modal-subtitle">Domina el generador de paletas interactivo con esta guía rápida.</p>
-            
-            <div class="guide-grid">
+            <button id="close-modal-btn" class="close-btn" type="button" aria-label="Cerrar la ayuda">Cerrar</button>
+            <h2 id="modal-title">Cómo se usa</h2>
+
+            <dl class="guide-list">
                 <div class="guide-item">
-                    <div class="guide-icon"><i class="ph ph-magic-wand"></i></div>
-                    <h3>Generar Paletas</h3>
-                    <p>Haz clic en <strong>Generar Paleta</strong> (o presiona la <strong>Barra Espaciadora</strong>) para obtener combinaciones aleatorias al instante.</p>
+                    <dt>Generar</dt>
+                    <dd>Con el botón <strong>Generar paleta</strong> o con la barra espaciadora se arma una combinación nueva de colores al azar.</dd>
                 </div>
                 <div class="guide-item">
-                    <div class="guide-icon"><i class="ph ph-lock-key"></i></div>
-                    <h3>Bloquear Colores</h3>
-                    <p>Usa el candado 🔒 en cada color para congelarlo. Al generar una nueva paleta, los colores bloqueados no cambiarán.</p>
+                    <dt>Bloquear</dt>
+                    <dd>El botón <strong>Bloquear</strong> de cada color lo deja fijo. Al generar de nuevo, los colores bloqueados no cambian.</dd>
                 </div>
                 <div class="guide-item">
-                    <div class="guide-icon"><i class="ph ph-copy"></i></div>
-                    <h3>Copiar al Portapapeles</h3>
-                    <p>Haz clic sobre el código de color (HEX o HSL) de cualquier tarjeta para copiarlo al instante. Verás una notificación Toast de confirmación.</p>
+                    <dt>Copiar</dt>
+                    <dd>Al hacer clic en el valor de un color (HEX o HSL) se copia al portapapeles y aparece un aviso abajo.</dd>
                 </div>
                 <div class="guide-item">
-                    <div class="guide-icon"><i class="ph ph-circle-half-tilt"></i></div>
-                    <h3>Formatos y Tamaño</h3>
-                    <p>Elige mostrar la paleta con 6, 8 o 9 colores y alterna el formato entre HEX y HSL para ver y copiar los valores fácilmente.</p>
+                    <dt>Cantidad y formato</dt>
+                    <dd>La paleta puede tener 6, 8 o 9 colores, y los valores se muestran en HEX o en HSL. La paleta queda guardada en este navegador.</dd>
                 </div>
-            </div>
-            
+            </dl>
+
             <div class="modal-footer">
-                <button id="close-guide-btn" class="primary-btn">¡Entendido!</button>
+                <button id="close-guide-btn" class="primary-btn" type="button">Entendido</button>
             </div>
         </div>
     </div>
